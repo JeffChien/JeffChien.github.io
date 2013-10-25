@@ -4,7 +4,7 @@
   <title><![CDATA[Category: nodejs | JChien's Blog]]></title>
   <link href="http://JeffChien.github.io/blog/categories/nodejs/atom.xml" rel="self"/>
   <link href="http://JeffChien.github.io/"/>
-  <updated>2013-10-26T01:13:26+08:00</updated>
+  <updated>2013-10-26T01:15:44+08:00</updated>
   <id>http://JeffChien.github.io/</id>
   <author>
     <name><![CDATA[JChien]]></name>
@@ -33,7 +33,7 @@ reimplement some unix tools. I tried both, here&rsquo;s what I learned.</p>
 </ul>
 
 
-<p>there are third option: <code>ipython</code>, after I read the book</p>
+<p>there is a third option: <code>ipython</code>, after I read the book</p>
 
 <p><img src="http://it-ebooks.info/images/ebooks/3/python_for_unix_and_linux_system_administration.jpg" alt="Python for Unix and Linux System Administration" /></p>
 
