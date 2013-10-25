@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: linux | JChien's Blog]]></title>
+  <link href="http://JeffChien.github.io/blog/categories/linux/atom.xml" rel="self"/>
+  <link href="http://JeffChien.github.io/"/>
+  <updated>2013-10-25T21:09:06+08:00</updated>
+  <id>http://JeffChien.github.io/</id>
+  <author>
+    <name><![CDATA[JChien]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[sudo hangs]]></title>
+    <link href="http://JeffChien.github.io/blog/2013/10/25/sudo-hangs/"/>
+    <updated>2013-10-25T20:24:00+08:00</updated>
+    <id>http://JeffChien.github.io/blog/2013/10/25/sudo-hangs</id>
+    <content type="html"><![CDATA[<h1>Problem description.</h1>
+
+<p>one day during work, I encountered this problem, every time I <code>sudo</code> a command,
+it took awhile to prompt from password.</p>
+
+<h1>how to fix it</h1>
+
+<p>I recalled that one of my colleague share how he use <code>strace</code> to debug a application.
+I decided to give it a shot.</p>
+
+<p><code>bash
+$ strace -Tvxfo trace.log sudo ls
+</code></p>
+
+<p>the log file is very large, these lines tells what cause the problem</p>
+
+<p><code>bash
+0.000093 socket(PF_INET, SOCK_DGRAM|SOCK_NONBLOCK, IPPROTO_IP) = 6 &lt;0.000014&gt;
+0.000042 connect(6, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("127.0.0.1")}, 16) = 0 &lt;0.000
+0.000051 poll([{fd=6, events=POLLOUT}], 1, 0) = 1 ([{fd=6, revents=POLLOUT}]) &lt;0.000009&gt;
+0.000043 sendto(6, "\x02\xd8\x01\x00\x00\x01\x00\x00\x00\x00\x00\x00\x08\x4a\x43\x75\x62\x75\x6e\x74\x75\x00
+0.000066 poll([{fd=6, events=POLLIN}], 1, 5000) = 0 (Timeout) &lt;5.005021&gt;
+5.005098 poll([{fd=6, events=POLLOUT}], 1, 0) = 1 ([{fd=6, revents=POLLOUT}]) &lt;0.000008&gt;
+</code>
+I changed the hostname in <code>/etc/hostname</code> day before. Line 4 say that it want to send somthing to <code>JCubuntu</code> (which is my new hostname),
+but it couldn&rsquo;t, so time out occurred.</p>
+
+<p>the solution is adding a new line to the <code>/etc/hosts</code></p>
+
+<p><code>bash
+127.0.0.1  newhostname
+</code></p>
+
+<p>the problem will disappear</p>
+]]></content>
+  </entry>
+  
+</feed>

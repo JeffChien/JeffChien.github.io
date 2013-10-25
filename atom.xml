@@ -1,37 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[JChien's Blog]]></title>
   <link href="http://JeffChien.github.io/atom.xml" rel="self"/>
   <link href="http://JeffChien.github.io/"/>
-  <updated>2013-09-28T13:44:59+08:00</updated>
+  <updated>2013-10-25T21:09:06+08:00</updated>
   <id>http://JeffChien.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[JChien]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
-    <title type="html"><![CDATA[test]]></title>
-    <link href="http://JeffChien.github.io/blog/2013/09/28/test/"/>
-    <updated>2013-09-28T11:15:00+08:00</updated>
-    <id>http://JeffChien.github.io/blog/2013/09/28/test</id>
-    <content type="html"><![CDATA[<h1>1</h1>
+    <title type="html"><![CDATA[sudo hangs]]></title>
+    <link href="http://JeffChien.github.io/blog/2013/10/25/sudo-hangs/"/>
+    <updated>2013-10-25T20:24:00+08:00</updated>
+    <id>http://JeffChien.github.io/blog/2013/10/25/sudo-hangs</id>
+    <content type="html"><![CDATA[<h1>Problem description.</h1>
+
+<p>one day during work, I encountered this problem, every time I <code>sudo</code> a command,
+it took awhile to prompt from password.</p>
+
+<h1>how to fix it</h1>
+
+<p>I recalled that one of my colleague share how he use <code>strace</code> to debug a application.
+I decided to give it a shot.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>strace -Tvxfo trace.log sudo ls
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>the log file is very large, these lines tells what cause the problem</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#!/usr/bin/env python</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">print</span><span class="p">(</span><span class="s">&#39;hello world&#39;</span><span class="p">)</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>0.000093 socket<span class="o">(</span>PF_INET, SOCK_DGRAM|SOCK_NONBLOCK, IPPROTO_IP<span class="o">)</span> <span class="o">=</span> 6 &lt;0.000014&gt;
+</span><span class='line'>0.000042 connect<span class="o">(</span>6, <span class="o">{</span><span class="nv">sa_family</span><span class="o">=</span>AF_INET, <span class="nv">sin_port</span><span class="o">=</span>htons<span class="o">(</span>53<span class="o">)</span>, <span class="nv">sin_addr</span><span class="o">=</span>inet_addr<span class="o">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="o">)}</span>, 16<span class="o">)</span> <span class="o">=</span> 0 &lt;0.000
+</span><span class='line'>0.000051 poll<span class="o">([{</span><span class="nv">fd</span><span class="o">=</span>6, <span class="nv">events</span><span class="o">=</span>POLLOUT<span class="o">}]</span>, 1, 0<span class="o">)</span> <span class="o">=</span> 1 <span class="o">([{</span><span class="nv">fd</span><span class="o">=</span>6, <span class="nv">revents</span><span class="o">=</span>POLLOUT<span class="o">}])</span> &lt;0.000009&gt;
+</span><span class='line'>0.000043 sendto<span class="o">(</span>6, <span class="err">&quot;</span><span class="se">\x</span>02<span class="se">\x</span>d8<span class="se">\x</span>01<span class="se">\x</span>00<span class="se">\x</span>00<span class="se">\x</span>01<span class="se">\x</span>00<span class="se">\x</span>00<span class="se">\x</span>00<span class="se">\x</span>00<span class="se">\x</span>00<span class="se">\x</span>00<span class="se">\x</span>08<span class="se">\x</span>4a<span class="se">\x</span>43<span class="se">\x</span>75<span class="se">\x</span>62<span class="se">\x</span>75<span class="se">\x</span>6e<span class="se">\x</span>74<span class="se">\x</span>75<span class="se">\x</span>00
+</span><span class='line'>0.000066 poll<span class="o">([{</span><span class="nv">fd</span><span class="o">=</span>6, <span class="nv">events</span><span class="o">=</span>POLLIN<span class="o">}]</span>, 1, 5000<span class="o">)</span> <span class="o">=</span> 0 <span class="o">(</span>Timeout<span class="o">)</span> &lt;5.005021&gt;
+</span><span class='line'>5.005098 poll<span class="o">([{</span><span class="nv">fd</span><span class="o">=</span>6, <span class="nv">events</span><span class="o">=</span>POLLOUT<span class="o">}]</span>, 1, 0<span class="o">)</span> <span class="o">=</span> 1 <span class="o">([{</span><span class="nv">fd</span><span class="o">=</span>6, <span class="nv">revents</span><span class="o">=</span>POLLOUT<span class="o">}])</span> &lt;0.000008&gt;
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h2>2</h2>
+<p>I changed the hostname in <code>/etc/hostname</code> day before. Line 4 say that it want to send somthing to <code>JCubuntu</code> (which is my new hostname),
+but it couldn&rsquo;t, so time out occurred.</p>
+
+<p>the solution is adding a new line to the <code>/etc/hosts</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>127.0.0.1  newhostname
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>the problem will disappear</p>
 ]]></content>
   </entry>
   
