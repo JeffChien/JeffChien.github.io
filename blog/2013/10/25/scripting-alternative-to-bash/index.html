@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>JChien's Blog</title>
+	<title>scripting alternative to bash - JChien's Blog</title>
 	<meta name="author" content="JChien">
 
 	
@@ -81,18 +81,9 @@ in some cases, bash script can be &hellip;">
 	
 		
 	
-	<div id="content" class="inner">
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/10/25/scripting-alternative-to-bash/">
-		
-			Scripting Alternative to Bash</a>
-	</h2>
-	<div class="entry-content">
-		<p>I really don&rsquo;t like to write bash script. I prefer use python as my shell language, but I have to admit that
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Scripting Alternative to Bash</h2>
+	<div class="entry-content"><p>I really don&rsquo;t like to write bash script. I prefer use python as my shell language, but I have to admit that
 in some cases, bash script can be simpler than python.</p>
 
 <p>I found the discussion <a href="http://stackoverflow.com/questions/10239235/are-there-any-languages-that-compile-to-bash">Are there any languages that compile to Bash?</a></p>
@@ -133,10 +124,7 @@ oh&hellip; not exactly pure python, ipython invent some of it&rsquo;s own syntax
 
 
 <p>script can be store in <code>*.ipy</code> for future use.</p>
-
-		
-		
-	</div>
+</div>
 
 
 <div class="meta">
@@ -161,101 +149,31 @@ oh&hellip; not exactly pure python, ipython invent some of it&rsquo;s own syntax
 
 </div>
 	
-	<div class="comments"><a href="/blog/2013/10/25/scripting-alternative-to-bash/#disqus_thread">Comments</a></div>
+	<div class="comments"><a href="#disqus_thread">Comments</a></div>
 	
 </div>
 </article>
 
-
-    <article class="post">
-	<h2 class="title">
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
 		
-		<a href="/blog/2013/10/25/sudo-hangs/">
 		
-			Sudo Hangs</a>
-	</h2>
-	<div class="entry-content">
-		<h1>Problem description.</h1>
-
-<p>one day during work, I encountered this problem, every time I <code>sudo</code> a command,
-it took awhile to prompt from password.</p>
-
-<h1>how to fix it</h1>
-
-<p>I recalled that one of my colleague share how he use <code>strace</code> to debug a application.
-I decided to give it a shot.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>strace -Tvxfo trace.log sudo ls
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>the log file is very large, these lines tells what cause the problem</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>0.000093 socket<span class="o">(</span>PF_INET, SOCK_DGRAM|SOCK_NONBLOCK, IPPROTO_IP<span class="o">)</span> <span class="o">=</span> 6 &lt;0.000014&gt;
-</span><span class='line'>0.000042 connect<span class="o">(</span>6, <span class="o">{</span><span class="nv">sa_family</span><span class="o">=</span>AF_INET, <span class="nv">sin_port</span><span class="o">=</span>htons<span class="o">(</span>53<span class="o">)</span>, <span class="nv">sin_addr</span><span class="o">=</span>inet_addr<span class="o">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="o">)}</span>, 16<span class="o">)</span> <span class="o">=</span> 0 &lt;0.000
-</span><span class='line'>0.000051 poll<span class="o">([{</span><span class="nv">fd</span><span class="o">=</span>6, <span class="nv">events</span><span class="o">=</span>POLLOUT<span class="o">}]</span>, 1, 0<span class="o">)</span> <span class="o">=</span> 1 <span class="o">([{</span><span class="nv">fd</span><span class="o">=</span>6, <span class="nv">revents</span><span class="o">=</span>POLLOUT<span class="o">}])</span> &lt;0.000009&gt;
-</span><span class='line'>0.000043 sendto<span class="o">(</span>6, <span class="err">&quot;</span><span class="se">\x</span>02<span class="se">\x</span>d8<span class="se">\x</span>01<span class="se">\x</span>00<span class="se">\x</span>00<span class="se">\x</span>01<span class="se">\x</span>00<span class="se">\x</span>00<span class="se">\x</span>00<span class="se">\x</span>00<span class="se">\x</span>00<span class="se">\x</span>00<span class="se">\x</span>08<span class="se">\x</span>4a<span class="se">\x</span>43<span class="se">\x</span>75<span class="se">\x</span>62<span class="se">\x</span>75<span class="se">\x</span>6e<span class="se">\x</span>74<span class="se">\x</span>75<span class="se">\x</span>00
-</span><span class='line'>0.000066 poll<span class="o">([{</span><span class="nv">fd</span><span class="o">=</span>6, <span class="nv">events</span><span class="o">=</span>POLLIN<span class="o">}]</span>, 1, 5000<span class="o">)</span> <span class="o">=</span> 0 <span class="o">(</span>Timeout<span class="o">)</span> &lt;5.005021&gt;
-</span><span class='line'>5.005098 poll<span class="o">([{</span><span class="nv">fd</span><span class="o">=</span>6, <span class="nv">events</span><span class="o">=</span>POLLOUT<span class="o">}]</span>, 1, 0<span class="o">)</span> <span class="o">=</span> 1 <span class="o">([{</span><span class="nv">fd</span><span class="o">=</span>6, <span class="nv">revents</span><span class="o">=</span>POLLOUT<span class="o">}])</span> &lt;0.000008&gt;
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I changed the hostname in <code>/etc/hostname</code> day before. Line 4 say that it want to send somthing to <code>JCubuntu</code> (which is my new hostname),
-but it couldn&rsquo;t, so time out occurred.</p>
-
-<p>the solution is adding a new line to the <code>/etc/hosts</code></p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>127.0.0.1  newhostname
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>the problem will disappear</p>
-
+		<a class="addthis_button_tweet"></a>
+		
 		
 		
 	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-25T20:24:00+08:00" pubdate data-updated="true">Oct 25<span>th</span>, 2013</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/debug/'>debug</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/strace/'>strace</a>, <a class='category' href='/blog/categories/terminal/'>terminal</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2013/10/25/sudo-hangs/#disqus_thread">Comments</a></div>
 	
 </div>
-</article>
 
-<nav id="pagenavi">
-    
-    
-    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
-</nav></div>
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
 	<footer id="footer" class="inner">Copyright &copy; 2013
 
     JChien
@@ -274,7 +192,10 @@ but it couldn&rsquo;t, so time out occurred.</p>
       var disqus_shortname = 'jchienblog';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://JeffChien.github.io/blog/2013/10/25/scripting-alternative-to-bash/';
+        var disqus_url = 'http://JeffChien.github.io/blog/2013/10/25/scripting-alternative-to-bash/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

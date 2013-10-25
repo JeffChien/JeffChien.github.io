@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: python | JChien's Blog]]></title>
+  <link href="http://JeffChien.github.io/blog/categories/python/atom.xml" rel="self"/>
+  <link href="http://JeffChien.github.io/"/>
+  <updated>2013-10-26T01:13:26+08:00</updated>
+  <id>http://JeffChien.github.io/</id>
+  <author>
+    <name><![CDATA[JChien]]></name>
+    <email><![CDATA[jeffchien13@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[scripting alternative to bash]]></title>
+    <link href="http://JeffChien.github.io/blog/2013/10/25/scripting-alternative-to-bash/"/>
+    <updated>2013-10-25T23:42:00+08:00</updated>
+    <id>http://JeffChien.github.io/blog/2013/10/25/scripting-alternative-to-bash</id>
+    <content type="html"><![CDATA[<p>I really don&rsquo;t like to write bash script. I prefer use python as my shell language, but I have to admit that
+in some cases, bash script can be simpler than python.</p>
+
+<p>I found the discussion <a href="http://stackoverflow.com/questions/10239235/are-there-any-languages-that-compile-to-bash">Are there any languages that compile to Bash?</a></p>
+
+<p>someone mention <a href="http://plumbum.readthedocs.org/en/latest/index.html">Plumbum</a> for python and <a href="https://github.com/arturadib/shelljs">ShellJS</a> for nodejs both
+reimplement some unix tools. I tried both, here&rsquo;s what I learned.</p>
+
+<ul>
+<li><p>Plumbum: overriding many python operator <code>| &lt; &gt;</code> &hellip;etc. give these operator new meaning such that <code>&gt; or &lt;</code> for redirect.</p></li>
+<li><p>ShellJS: javascript syntax not as simple as python, but there are <code>coffee script</code>/<code>livescript</code> which provide much elegant syntax,
+  make this library worth using.</p></li>
+</ul>
+
+
+<p>there are third option: <code>ipython</code>, after I read the book</p>
+
+<p><img src="http://it-ebooks.info/images/ebooks/3/python_for_unix_and_linux_system_administration.jpg" alt="Python for Unix and Linux System Administration" /></p>
+
+<p><code>ipython</code> is really amazing, I use it as my default pytohn REPL, this book give me lot&rsquo;s of way to write a bash like script in python way,
+oh&hellip; not exactly pure python, ipython invent some of it&rsquo;s own syntax.</p>
+
+<p>here are some example</p>
+
+<ul>
+<li><code>!ls</code>: execute ls</li>
+<li><code>!ls | grep config</code>: ls with filter</li>
+<li><code>%rehash</code>: hash command in PATH. make unix command can be use inside ipython REPL.</li>
+</ul>
+
+
+<p><code>python
+(ipython) user = 'root'
+(ipython) process = 'bash'
+(ipython) listofitem = !ps aux | grep $user | grep $process
+</code></p>
+
+<p>script can be store in <code>*.ipy</code> for future use.</p>
+]]></content>
+  </entry>
+  
+</feed>
