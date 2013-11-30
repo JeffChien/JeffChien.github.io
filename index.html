@@ -7,8 +7,8 @@
 	<meta name="author" content="JChien">
 
 	
-	<meta name="description" content="I really don&rsquo;t like to write bash script. I prefer use python as my shell language, but I have to admit that
-in some cases, bash script can be &hellip;">
+	<meta name="description" content="Multi-dimentional list syntax in python is not as simple as I thought like 1
+MyList = 3 * [ 3 * [ 3 * [0]]] and then, try to modify a value in it, &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -82,6 +82,112 @@ in some cases, bash script can be &hellip;">
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/12/01/multi-dimentional-list-in-python/">
+		
+			Multi-dimentional List in Python</a>
+	</h2>
+	<div class="entry-content">
+		<p>Multi-dimentional list syntax in python is not as simple as I thought like</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">MyList</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="p">[</span> <span class="mi">3</span> <span class="o">*</span> <span class="p">[</span> <span class="mi">3</span> <span class="o">*</span> <span class="p">[</span><span class="mi">0</span><span class="p">]]]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and then, try to modify a value in it, <code>MyList[0][0][0] = 1</code>, you will see there will be <code>9</code> items with value 1,
+this is not we expecte a normal multi-dimentional list should do.</p>
+
+<p>the problem is python instead of create a new instance of list, it copy the <code>Reference</code> of it.  I misused it, and bugged me for a while, after digging on the net, came up with 3 different ways.</p>
+
+<h3>comprehension</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">MyList</span> <span class="o">=</span> <span class="p">[[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#operate</span>
+</span><span class='line'><span class="n">MyList</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>simulate with dict</h3>
+
+<p>with <code>collection.defaultdict</code> help</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">collections</span> <span class="nn">improt</span> <span class="nn">defaultdict</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">MyList</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#operate</span>
+</span><span class='line'><span class="n">MyList</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span class='line'><span class="n">MyList</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;Good&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>this give us a very similar syntax provided by NumPy</p>
+
+<h3>use NumPy array</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</span><span class='line'><span class="n">MyList</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#operate</span>
+</span><span class='line'><span class="n">MyList</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>this way unlike the other two above, only numbers is allowed.</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-01T00:15:00+08:00" pubdate data-updated="true">Dec 1<span>st</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/script/'>script</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2013/12/01/multi-dimentional-list-in-python/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
 
 
     <article class="post">

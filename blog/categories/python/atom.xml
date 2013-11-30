@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python | JChien's Blog]]></title>
   <link href="http://JeffChien.github.io/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://JeffChien.github.io/"/>
-  <updated>2013-10-26T01:15:44+08:00</updated>
+  <updated>2013-12-01T01:12:30+08:00</updated>
   <id>http://JeffChien.github.io/</id>
   <author>
     <name><![CDATA[JChien]]></name>
@@ -12,6 +12,62 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[multi-dimentional list in python]]></title>
+    <link href="http://JeffChien.github.io/blog/2013/12/01/multi-dimentional-list-in-python/"/>
+    <updated>2013-12-01T00:15:00+08:00</updated>
+    <id>http://JeffChien.github.io/blog/2013/12/01/multi-dimentional-list-in-python</id>
+    <content type="html"><![CDATA[<p>Multi-dimentional list syntax in python is not as simple as I thought like</p>
+
+<p><code>python
+MyList = 3 * [ 3 * [ 3 * [0]]]
+</code></p>
+
+<p>and then, try to modify a value in it, <code>MyList[0][0][0] = 1</code>, you will see there will be <code>9</code> items with value 1,
+this is not we expecte a normal multi-dimentional list should do.</p>
+
+<p>the problem is python instead of create a new instance of list, it copy the <code>Reference</code> of it.  I misused it, and bugged me for a while, after digging on the net, came up with 3 different ways.</p>
+
+<h3>comprehension</h3>
+
+<p>```python
+MyList = [[[0 for _ in range(3)] for _ in range(3)] for _ in range(3)]</p>
+
+<h1>operate</h1>
+
+<p>MyList[0][0][0] = 1
+```</p>
+
+<h3>simulate with dict</h3>
+
+<p>with <code>collection.defaultdict</code> help</p>
+
+<p>```python
+from collections improt defaultdict</p>
+
+<p>MyList = defaultdict(int)</p>
+
+<h1>operate</h1>
+
+<p>MyList[0,0,0] = 1
+MyList[0,1,2] = &lsquo;Good&rsquo;
+```
+this give us a very similar syntax provided by NumPy</p>
+
+<h3>use NumPy array</h3>
+
+<p>```python
+import numpy as np
+MyList = np.zeros((3,3,3))</p>
+
+<h1>operate</h1>
+
+<p>MyList[0,0,0] = 1
+```
+this way unlike the other two above, only numbers is allowed.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[scripting alternative to bash]]></title>
