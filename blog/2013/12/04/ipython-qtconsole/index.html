@@ -1,0 +1,247 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>ipython qtconsole - JChien's Blog</title>
+	<meta name="author" content="JChien">
+
+	
+	<meta name="description" content="This post record how I setup ipython qtconsole and what problem I encountered. qtconsole need PyQt4 or PySide installed, here I choose PyQt4. to &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="JChien's Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">JChien's Blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/about">About</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/about">About</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:JeffChien.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/jeffchien" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		<a class="linkedin" href="http://www.linkedin.com/pub/jeff-chien/70/34b/428">LinkedIn</a>
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:JeffChien.github.io">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Ipython Qtconsole</h2>
+	<div class="entry-content"><p>This post record how I setup ipython qtconsole and what problem I encountered.</p>
+
+<p><code>qtconsole</code> need PyQt4 or PySide installed, here I choose PyQt4.</p>
+
+<p>to install PyQt4, need to setup SIP first, these two need install from source code.</p>
+
+<p>ps. it is recommend to setup python in virtual env with <a href="https://github.com/yyuu/pyenv">pyenv</a> first.</p>
+
+<h3>dependency</h3>
+
+<p>Install some dev packages for building source code.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install python-dev python-qt4 python-qt4-dev python-sip python-sip-dev build-essential gfortran libqt4-dev qt4-qmake libpq-dev libsqlite3-dev qt4-dev-tools qt4-doc unixodbc-dev pyqt4-dev-tools</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>SIP</h3>
+
+<p>download <a href="http://www.riverbankcomputing.co.uk/software/sip/download">source code</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>python config.py
+</span><span class='line'>make
+</span><span class='line'>make install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>PyQt4</h3>
+
+<p>this is the tricky part. Since current version of PyQt4 is <code>4.10</code>, which broken with ipython.
+I found someone with similiar problem <a href="http://code.google.com/p/spyderlib/issues/detail?id=1302">spyderlib issues</a>,
+it says ipython is working on it, so I clone the dev version of ipython from github, but it still not working. I endup
+choose previous version of PyQt4 <code>4.9.4</code> and it works!!</p>
+
+<p><a href="http://sourceforge.net/projects/pyqt/files/PyQt4/">source code</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>python configure.py
+</span><span class='line'>make
+</span><span class='line'>make install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>if you have Qt4 and Qt5 both installed, you maybe have problem when running <code>configure.py</code>,
+because the enviroment is set for Qt5 not Qt4, we need to tell python to use Qt4 explicitly.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">QMAKESPEC</span><span class="o">=</span>/usr/share/qt4/mkspecs/default
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and run <code>configure.py</code> with</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>python configure.py -q qmake-qt4
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>reference</h1>
+
+<p><a href="http://lucacerone.net/2013/08/installing-pyqt4-and-sip-in-a-virtual-environment-ubuntu-1204/#.UpirfkOa46U">installing-pyqt4-and-sip-in-a-virtual-environment-ubuntu-1204</a></p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-04T13:22:00+08:00" pubdate data-updated="true">Dec 4<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/python/'>python</a>
+
+
+</div>
+	
+	<div class="comments"><a href="#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2013
+
+    JChien
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'jchienblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://JeffChien.github.io/blog/2013/12/04/ipython-qtconsole/';
+        var disqus_url = 'http://JeffChien.github.io/blog/2013/12/04/ipython-qtconsole/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-45158496-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

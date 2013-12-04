@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python | JChien's Blog]]></title>
   <link href="http://JeffChien.github.io/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://JeffChien.github.io/"/>
-  <updated>2013-12-01T01:12:30+08:00</updated>
+  <updated>2013-12-04T14:02:03+08:00</updated>
   <id>http://JeffChien.github.io/</id>
   <author>
     <name><![CDATA[JChien]]></name>
@@ -12,6 +12,71 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ipython qtconsole]]></title>
+    <link href="http://JeffChien.github.io/blog/2013/12/04/ipython-qtconsole/"/>
+    <updated>2013-12-04T13:22:00+08:00</updated>
+    <id>http://JeffChien.github.io/blog/2013/12/04/ipython-qtconsole</id>
+    <content type="html"><![CDATA[<p>This post record how I setup ipython qtconsole and what problem I encountered.</p>
+
+<p><code>qtconsole</code> need PyQt4 or PySide installed, here I choose PyQt4.</p>
+
+<p>to install PyQt4, need to setup SIP first, these two need install from source code.</p>
+
+<p>ps. it is recommend to setup python in virtual env with <a href="https://github.com/yyuu/pyenv">pyenv</a> first.</p>
+
+<h3>dependency</h3>
+
+<p>Install some dev packages for building source code.</p>
+
+<p><code>
+sudo apt-get install python-dev python-qt4 python-qt4-dev python-sip python-sip-dev build-essential gfortran libqt4-dev qt4-qmake libpq-dev libsqlite3-dev qt4-dev-tools qt4-doc unixodbc-dev pyqt4-dev-tools
+</code></p>
+
+<h3>SIP</h3>
+
+<p>download <a href="http://www.riverbankcomputing.co.uk/software/sip/download">source code</a></p>
+
+<p><code>bash
+python config.py
+make
+make install
+</code></p>
+
+<h3>PyQt4</h3>
+
+<p>this is the tricky part. Since current version of PyQt4 is <code>4.10</code>, which broken with ipython.
+I found someone with similiar problem <a href="http://code.google.com/p/spyderlib/issues/detail?id=1302">spyderlib issues</a>,
+it says ipython is working on it, so I clone the dev version of ipython from github, but it still not working. I endup
+choose previous version of PyQt4 <code>4.9.4</code> and it works!!</p>
+
+<p><a href="http://sourceforge.net/projects/pyqt/files/PyQt4/">source code</a></p>
+
+<p><code>bash
+python configure.py
+make
+make install
+</code></p>
+
+<p>if you have Qt4 and Qt5 both installed, you maybe have problem when running <code>configure.py</code>,
+because the enviroment is set for Qt5 not Qt4, we need to tell python to use Qt4 explicitly.</p>
+
+<p><code>bash
+export QMAKESPEC=/usr/share/qt4/mkspecs/default
+</code></p>
+
+<p>and run <code>configure.py</code> with</p>
+
+<p><code>bash
+python configure.py -q qmake-qt4
+</code></p>
+
+<h1>reference</h1>
+
+<p><a href="http://lucacerone.net/2013/08/installing-pyqt4-and-sip-in-a-virtual-environment-ubuntu-1204/#.UpirfkOa46U">installing-pyqt4-and-sip-in-a-virtual-environment-ubuntu-1204</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[multi-dimentional list in python]]></title>

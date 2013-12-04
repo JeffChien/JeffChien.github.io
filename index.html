@@ -7,8 +7,7 @@
 	<meta name="author" content="JChien">
 
 	
-	<meta name="description" content="Multi-dimentional list syntax in python is not as simple as I thought like 1
-MyList = 3 * [ 3 * [ 3 * [0]]] and then, try to modify a value in it, &hellip;">
+	<meta name="description" content="This post record how I setup ipython qtconsole and what problem I encountered. qtconsole need PyQt4 or PySide installed, here I choose PyQt4. to &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -82,6 +81,113 @@ MyList = 3 * [ 3 * [ 3 * [0]]] and then, try to modify a value in it, &hellip;">
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/12/04/ipython-qtconsole/">
+		
+			Ipython Qtconsole</a>
+	</h2>
+	<div class="entry-content">
+		<p>This post record how I setup ipython qtconsole and what problem I encountered.</p>
+
+<p><code>qtconsole</code> need PyQt4 or PySide installed, here I choose PyQt4.</p>
+
+<p>to install PyQt4, need to setup SIP first, these two need install from source code.</p>
+
+<p>ps. it is recommend to setup python in virtual env with <a href="https://github.com/yyuu/pyenv">pyenv</a> first.</p>
+
+<h3>dependency</h3>
+
+<p>Install some dev packages for building source code.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install python-dev python-qt4 python-qt4-dev python-sip python-sip-dev build-essential gfortran libqt4-dev qt4-qmake libpq-dev libsqlite3-dev qt4-dev-tools qt4-doc unixodbc-dev pyqt4-dev-tools</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>SIP</h3>
+
+<p>download <a href="http://www.riverbankcomputing.co.uk/software/sip/download">source code</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>python config.py
+</span><span class='line'>make
+</span><span class='line'>make install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>PyQt4</h3>
+
+<p>this is the tricky part. Since current version of PyQt4 is <code>4.10</code>, which broken with ipython.
+I found someone with similiar problem <a href="http://code.google.com/p/spyderlib/issues/detail?id=1302">spyderlib issues</a>,
+it says ipython is working on it, so I clone the dev version of ipython from github, but it still not working. I endup
+choose previous version of PyQt4 <code>4.9.4</code> and it works!!</p>
+
+<p><a href="http://sourceforge.net/projects/pyqt/files/PyQt4/">source code</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>python configure.py
+</span><span class='line'>make
+</span><span class='line'>make install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>if you have Qt4 and Qt5 both installed, you maybe have problem when running <code>configure.py</code>,
+because the enviroment is set for Qt5 not Qt4, we need to tell python to use Qt4 explicitly.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">QMAKESPEC</span><span class="o">=</span>/usr/share/qt4/mkspecs/default
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and run <code>configure.py</code> with</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>python configure.py -q qmake-qt4
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>reference</h1>
+
+<p><a href="http://lucacerone.net/2013/08/installing-pyqt4-and-sip-in-a-virtual-environment-ubuntu-1204/#.UpirfkOa46U">installing-pyqt4-and-sip-in-a-virtual-environment-ubuntu-1204</a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-04T13:22:00+08:00" pubdate data-updated="true">Dec 4<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/python/'>python</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2013/12/04/ipython-qtconsole/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
 
 
     <article class="post">
