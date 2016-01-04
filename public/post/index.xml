@@ -61,5 +61,46 @@ If cheanged, btrfs will create a new copy of it and keep old one untouched. That
 </description>
     </item>
     
+    <item>
+      <title>Scripting Alternative to Bash</title>
+      <link>http://replace-this-with-your-hugo-site.com/post/Scripting_Alternative_to_Bash/</link>
+      <pubDate>Fri, 25 Oct 2013 12:00:00 +0800</pubDate>
+      
+      <guid>http://replace-this-with-your-hugo-site.com/post/Scripting_Alternative_to_Bash/</guid>
+      <description>&lt;p&gt;I really don&amp;rsquo;t like to write bash script. I prefer use python as my shell language, but I have to admit that in some cases, bash script can be simpler than python. I found the discussion &lt;a href=&#34;http://stackoverflow.com/questions/10239235/are-there-any-languages-that-compile-to-bash&#34;&gt;Are there any languages that compile to Bash&lt;/a&gt;?&lt;/p&gt;
+
+&lt;p&gt;Someone mention &lt;a href=&#34;http://plumbum.readthedocs.org/en/latest/index.html&#34;&gt;Plumbum&lt;/a&gt; for python and &lt;a href=&#34;https://github.com/arturadib/shelljs&#34;&gt;ShellJS&lt;/a&gt; for nodejs both reimplement some unix tools. I tried both, here&amp;rsquo;s what I learned.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Plumbum&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;overriding many python operator &lt;code&gt;| &amp;lt; &amp;gt;&lt;/code&gt; …etc. give these operators new meaning such that &lt;code&gt;&amp;gt;&lt;/code&gt; or &lt;code&gt;&amp;lt;&lt;/code&gt; for redirection.&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;ShellJS&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;javascript syntax is not as simple as python, but there are coffee script/livescript which provide much elegant syntax, make this library worth using.&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;there is a third option: &lt;code&gt;ipython&lt;/code&gt;, I had read the book&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://it-ebooks.info/images/ebooks/3/python_for_unix_and_linux_system_administration.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;ipython is really amazing, I use it as my default pytohn REPL, this book give me lot&amp;rsquo;s of way to write a bash like script in python way, oh… not exactly pure python, ipython invent some of it&amp;rsquo;s own syntax.
+Here are some example&lt;/p&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;ls:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;execute&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;ls&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;ls&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;grep&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;config:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;ls&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;with&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;filter&lt;/span&gt;
+&lt;span style=&#34;color: #a6e22e&#34;&gt;%rehash&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;hash&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;command&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;PATH.&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;make&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;unix&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;command&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;can&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;be&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;inside&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;ipython&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;REPL.&lt;/span&gt;
+
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;(ipython)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;user&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #960050; background-color: #1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;root&lt;/span&gt;&lt;span style=&#34;color: #960050; background-color: #1e0010&#34;&gt;&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;(ipython)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;process&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #960050; background-color: #1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;bash&lt;/span&gt;&lt;span style=&#34;color: #960050; background-color: #1e0010&#34;&gt;&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;(ipython)&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;listofitem&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;ps&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;aux&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;grep&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$user&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;grep&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;$process&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>
