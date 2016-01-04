@@ -1,0 +1,9 @@
+baseurl = "http://replace-this-with-your-hugo-site.com/"
+languageCode = "en-us"
+title = "JChien"
+PygmentsCodeFences = "true"
+
+[Params]
+subtitle = ""
+github = "https://github.com/jeffchien"
+copyright = "Written by Jeff Chien"
